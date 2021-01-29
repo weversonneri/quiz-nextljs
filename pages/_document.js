@@ -6,9 +6,6 @@ export default class MyDocument extends Document {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
     
-//Projeto de quiz criado na Imersão React v2 Alura
-
-
     try {
       ctx.renderPage = () =>
         originalRenderPage({
