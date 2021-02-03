@@ -7,29 +7,40 @@ import QuizContainer from '../../components/QuizContainer';
 import AlternativesForm from '../../components/AlternativesForm';
 import Button from '../../components/Button';
 import BackLinkArrow from '../../components/BackLinkArrow';
+import { useRouter } from 'next/router';
 
 
-function ResultWidget({ results }) {
+const QuizUserName = () => {
+  const {
+      query: { name },
+  } = useRouter();
+
+  return <span>Este é seu resultado final {name}</span>
+}
+
+function ResultWidget({ results, totalQuestions }) {
   return (
     <Widget>
       <Widget.Header>
-        Tela de Resultado:
+        <QuizUserName />
       </Widget.Header>
 
       <Widget.Content>
         <p>
-          Você acertou
-          {' '}
-          {/* {results.reduce((somatoriaAtual, resultAtual) => {
-            const isAcerto = resultAtual === true;
+          {`Você acertou
+            ${results.reduce((somatoriaAtual, resultadoAtual) => {
+            const isAcerto = resultadoAtual === true;
             if (isAcerto) {
               return somatoriaAtual + 1;
             }
             return somatoriaAtual;
-          }, 0)} */}
-          {results.filter((x) => x).length}
+            
+          }, 0)}` }
+
+          {/*results.filter((x) => x).length*/}
           {' '}
-          perguntas
+           de {totalQuestions} perguntas
+       
         </p>
         <ul>
           {results.map((result, index) => (
@@ -57,7 +68,7 @@ function LoadingWidget() {
       </Widget.Header>
 
       <Widget.Content >
-        
+
       </Widget.Content>
     </Widget>
   );
@@ -89,7 +100,7 @@ function QuestionWidget({
         alt="Descrição"
         style={{
           width: '100%',
-          height: '150px',
+          height: '190px',
           objectFit: 'cover',
         }}
         src={question.image}
@@ -144,8 +155,8 @@ function QuestionWidget({
           <Button type="submit" disabled={!hasAlternativeSelected}>
             Confirmar
           </Button>
-          {isQuestionSubmited && isCorrect && <p>Você acertou!</p>}
-          {isQuestionSubmited && !isCorrect && <p>Você errou!</p>}
+          {isQuestionSubmited && isCorrect && <p>You're goddamn right!</p>}
+          {isQuestionSubmited && !isCorrect && <p>Fail!</p>}
         </AlternativesForm>
       </Widget.Content>
     </Widget>
@@ -183,7 +194,7 @@ export default function QuizPage({ externalQuestions, externalBg }) {
     setTimeout(() => {
       setScreenState(screenStates.QUIZ);
     }, 1 * 2000);
-  // nasce === didMount
+    // nasce === didMount
   }, []);
 
   function handleSubmitQuiz() {
@@ -211,7 +222,7 @@ export default function QuizPage({ externalQuestions, externalBg }) {
 
         {screenState === screenStates.LOADING && <LoadingWidget />}
 
-        {screenState === screenStates.RESULT && <ResultWidget results={results} />}
+        {screenState === screenStates.RESULT && <ResultWidget results={results} totalQuestions={totalQuestions}/>}
       </QuizContainer>
     </QuizBackground>
   );
