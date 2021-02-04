@@ -8,14 +8,24 @@ import AlternativesForm from '../../components/AlternativesForm';
 import Button from '../../components/Button';
 import BackLinkArrow from '../../components/BackLinkArrow';
 import { useRouter } from 'next/router';
+import GitHubCorner from '../../components/GitHubCorner';
+import Link from '../../components/Link';
 
 
 const QuizUserName = () => {
   const {
-      query: { name },
+    query: { name },
   } = useRouter();
 
   return <span>Este é seu resultado final {name}</span>
+}
+
+//FUNCIONA MAS AINDA NÃO SEI SE É UMA BOA PRATICA
+export const HandleClickHome = (event) => {
+  const router = useRouter();
+  event.preventDefault;
+
+  return <Button onClick={() => router.push('/')}>Jogar Novamente</Button>
 }
 
 function ResultWidget({ results, totalQuestions }) {
@@ -34,27 +44,30 @@ function ResultWidget({ results, totalQuestions }) {
               return somatoriaAtual + 1;
             }
             return somatoriaAtual;
-            
-          }, 0)}` }
+
+          }, 0)}`}
 
           {/*results.filter((x) => x).length*/}
           {' '}
            de {totalQuestions} perguntas
-       
+
         </p>
         <ul>
           {results.map((result, index) => (
             <li key={`result__${result}`}>
-              #
-              {index + 1}
-              {' '}
-              Resultado:
-              {result === true
-                ? 'Acertou'
-                : 'Errou'}
+              #{index + 1} Resultado: {result == true ? 'Acertou ' : 'Errou'}
             </li>
           ))}
         </ul>
+        <HandleClickHome />
+
+        {//<Button
+         // /*display="no"
+         // as={Link}
+        //  href={"/"}*/>
+        //  Jogar Novamente
+
+       /* </Button>*/}
       </Widget.Content>
     </Widget>
   );
@@ -222,8 +235,9 @@ export default function QuizPage({ externalQuestions, externalBg }) {
 
         {screenState === screenStates.LOADING && <LoadingWidget />}
 
-        {screenState === screenStates.RESULT && <ResultWidget results={results} totalQuestions={totalQuestions}/>}
+        {screenState === screenStates.RESULT && <ResultWidget results={results} totalQuestions={totalQuestions} />}
       </QuizContainer>
+      <GitHubCorner projectUrl="https://github.com/weversonneri/quiz-nextljs" />
     </QuizBackground>
   );
 }
