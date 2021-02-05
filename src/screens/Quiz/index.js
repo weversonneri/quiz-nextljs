@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from "framer-motion";
 // import db from '../../../db.json';
 import Widget from '../../components/Widget';
 import QuizLogo from '../../components/QuizLogo';
@@ -10,6 +11,9 @@ import BackLinkArrow from '../../components/BackLinkArrow';
 import { useRouter } from 'next/router';
 import GitHubCorner from '../../components/GitHubCorner';
 import Link from '../../components/Link';
+import { Lottie } from '@crello/react-lottie';
+import loadingAnimation from './loadingAnim.json';
+
 
 
 const QuizUserName = () => {
@@ -25,7 +29,11 @@ export const HandleClickHome = (event) => {
   const router = useRouter();
   event.preventDefault;
 
-  return <Button onClick={() => router.push('/')}>Responder Novamente</Button>
+  return <Button as={motion.button}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.9 }}
+    onClick={() => router.push('/')}>Responder Novamente
+    </Button>
 }
 
 function ResultWidget({ results, totalQuestions }) {
@@ -75,13 +83,19 @@ function ResultWidget({ results, totalQuestions }) {
 
 function LoadingWidget() {
   return (
+
     <Widget>
       <Widget.Header>
         Carregando...
       </Widget.Header>
 
-      <Widget.Content >
-
+      <Widget.Content style={{ display: 'flex', justifyContent: 'center' }}>
+        <Lottie
+          width="200px"
+          height="200px"
+          className="lottie-container basic"
+          config={{ animationData: loadingAnimation, loop: true, autoplay: true }}
+        />
       </Widget.Content>
     </Widget>
   );
@@ -118,7 +132,16 @@ function QuestionWidget({
         }}
         src={question.image}
       />
-      <Widget.Content>
+      <Widget.Content
+        as={motion.div}
+        transition={{ delay: 0, duration: 0.5 }}
+        variants={{
+          show: { opacity: 1, y: '0' },
+          hidden: { opacity: 0, y: '100%' },
+        }}
+        initial="hidden"
+        animate="show"
+      >
         <h2>
           {question.title}
         </h2>
@@ -165,7 +188,12 @@ function QuestionWidget({
           {/* <pre>
             {JSON.stringify(question, null, 4)}
           </pre> */}
-          <Button type="submit" disabled={!hasAlternativeSelected}>
+          <Button
+            type="submit"
+            disabled={!hasAlternativeSelected}
+            as={motion.button}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.9 }}>
             Confirmar
           </Button>
           {isQuestionSubmited && isCorrect && <p>You're goddamn right!</p>}

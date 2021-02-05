@@ -13,6 +13,7 @@ import QuizContainer from '../src/components/QuizContainer';
 import Button from '../src/components/Button';
 import Input from '../src/components/Input';
 import Link from '../src/components/Link';
+import { motion } from 'framer-motion';
 
 
 export default function Home() {
@@ -27,7 +28,16 @@ export default function Home() {
       </Head>
       <QuizContainer>
         <QuizLogo />
-        <Widget>
+        <Widget
+          as={motion.section}
+          transition={{ delay: 0, duration: 0.5 }}
+          variants={{
+            show: { opacity: 1, y: '0' },
+            hidden: { opacity: 0, y: '100%' },
+          }}
+          initial="hidden"
+          animate="show"
+        >
           <Widget.Header>
             <h1>{db.title}</h1>
           </Widget.Header>
@@ -43,13 +53,27 @@ export default function Home() {
                 onChange={(event) => setName(event.target.value)}
                 placeholder="Say Your Name!!!"
                 value={name} />
-              <Button type="submit" disabled={name.length === 0}>
+              <Button
+                type="submit"
+                disabled={name.length === 0}
+                as={motion.button}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.9 }}>
                 {`Jogar ${name}`}
               </Button>
             </form>
           </Widget.Content>
         </Widget>
-        <Widget>
+        <Widget
+          as={motion.section}
+          transition={{ delay: 0, duration: 0.5 }}
+          variants={{
+            show: { opacity: 1, y: '0' },
+            hidden: { opacity: 0, y: '100%' },
+          }}
+          initial="hidden"
+          animate="show"
+        >
           <Widget.Content>
             <h1>Quizes</h1>
 
@@ -74,7 +98,16 @@ export default function Home() {
             </ul>
           </Widget.Content>
         </Widget>
-        <Footer />
+        <Footer
+          as={motion.footer}
+          transition={{ delay: 0, duration: 0.5 }}
+          variants={{
+            show: { opacity: 1, y: '0' },
+            hidden: { opacity: 0, y: '100%' },
+          }}
+          initial="hidden"
+          animate="show"
+        />
       </QuizContainer>
       <GitHubCorner projectUrl="https://github.com/weversonneri/quiz-nextljs" />
     </QuizBackground>
