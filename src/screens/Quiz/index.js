@@ -25,7 +25,7 @@ export const HandleClickHome = (event) => {
   const router = useRouter();
   event.preventDefault;
 
-  return <Button onClick={() => router.push('/')}>Jogar Novamente</Button>
+  return <Button onClick={() => router.push('/')}>Responder Novamente</Button>
 }
 
 function ResultWidget({ results, totalQuestions }) {

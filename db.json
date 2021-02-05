@@ -1,6 +1,6 @@
 
 {
-    "bg": "https://images4.alphacoders.com/688/688202.png",
+    "bg": "https://images7.alphacoders.com/304/304225.jpg",
     "title": "Breaking Bad Quiz",
     "description": "Vamos ver o quanto você conhece de uma das melhores séries já produzidas pela humanidade",
     "questions": [
@@ -72,8 +72,8 @@
     "theme": {
       "colors": {
         "primary": "#0A0B26",
-        "secondary": "#A64B37",
-        "mainBg": "#A67B7B",
+        "secondary": "#621e16",
+        "mainBg": "#c9981b",
         "contrastText": "#ffffff",
         "wrong": "#FF5722",
         "success": "#4CAF50"
